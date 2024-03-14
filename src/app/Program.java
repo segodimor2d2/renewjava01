@@ -1,8 +1,8 @@
 package app;
 
 import entities.Account;
+import filesInOut.FileCsv;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -10,75 +10,19 @@ import java.util.Scanner;
 
 public class Program {
     public static void main(String[] args) {
+
         Locale.setDefault(Locale.US);
         Scanner sc = new Scanner(System.in);
-        System.out.println("=====================================");
 
-        List<Account> list = new ArrayList<>();
+        // import csv mock
+        FileCsv fcsv = new FileCsv();
 
-        //String sourceFileStr = "../mockAccount01.csv";
-        String sourceFileStr = "mockAccount01.csv";
+        //System.out.println("=====================================");
+        List<Account> lst = fcsv.importFile();
 
-        File sourceFile = new File(sourceFileStr);
-        String sourceFolderStr = sourceFile.getParent();
-
-        //System.out.println(sourceFolderStr);
-
-        //File success = new File(sourceFolderStr + "\\out");
-        //System.out.println(success);
-
-        //String targetFlieStr = sourceFolderStr + "fileout.csv";
-        String targetFlieStr = "mockAccount02.csv";
-
-
-        try (BufferedReader br = new BufferedReader(new FileReader(sourceFileStr))) {
-            String itemCsv = br.readLine();
-            itemCsv = br.readLine(); // pula os cavesalhos
-            while (itemCsv != null){
-                String[] fields = itemCsv.split(",");
-                String accountNumber = fields[0];
-                String agencyNumber = fields[1];
-                String accountType = fields[2];
-                String name = fields[3];
-                double amount = Double.parseDouble(fields[4]);
-
-                list.add(new Account(accountNumber,agencyNumber,accountType,name,amount));
-                itemCsv = br.readLine();
-            }
-
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter(targetFlieStr))) {
-                bw.write("accountNumber,agencyNumber,accountType,name,amount");
-                bw.newLine();
-                for (Account item: list) {
-                    bw.write(item.getAccountNumber()
-                    +","
-                    +item.getAgencyNumber()
-                    +","
-                    +item.getAccountType()
-                    +","
-                    +item.getName()
-                    +","
-                    +item.getAmount() );
-                    bw.newLine();
-                }
-
-                System.out.println(targetFlieStr + " created");
-
-            } catch (IOException e){
-                System.out.println("error in write: "+ e.getMessage());
-            }
-
-        } catch (IOException e){
-            System.out.println("error in read: "+ e.getMessage());
+        for (Account item: lst) {
+            System.out.println(item.getName());
         }
-
-
-
-
-
-        System.out.println("=====================================");
-
-
 
         /*
         UI ui = new UI();
