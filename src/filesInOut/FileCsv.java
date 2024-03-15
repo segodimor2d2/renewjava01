@@ -7,7 +7,7 @@ import java.util.List;
 
 public class FileCsv {
     public List<Account> importFile() {
-        List<Account> lst = new ArrayList<>();
+        List<Account> accountList = new ArrayList<>();
 
         //List<Account> list = new ArrayList<>();
 
@@ -36,22 +36,21 @@ public class FileCsv {
                 String name = fields[3];
                 double amount = Double.parseDouble(fields[4]);
 
-                lst.add(new Account(accountNumber, agencyNumber, accountType, name, amount));
+                accountList.add(new Account(accountNumber, agencyNumber, accountType, name, amount));
                 itemCsv = br.readLine();
             }
 
         } catch (IOException e) {
             System.out.println("error in read: " + e.getMessage());
         }
-
-        return lst;
+        return accountList;
     }
-    public void exportFile(List<Account> lst){
+    public void exportFile(List<Account> accountList){
         String targetFlieStr = "mockAccount02.csv";
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(targetFlieStr))) {
             bw.write("accountNumber,agencyNumber,accountType,name,amount");
             bw.newLine();
-            for (Account item: lst) {
+            for (Account item: accountList) {
                 bw.write(item.getAccountNumber()
                         +","
                         +item.getAgencyNumber()
