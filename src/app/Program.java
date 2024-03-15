@@ -14,8 +14,7 @@ public class Program {
 
         // IMPORT CSV MOCK
         FileCsv fcsv = new FileCsv();
-        List<Account> accountList = fcsv.importFile();
-        //for (Account item: accountList) { System.out.println(item.getName()); }
+        List<Account> accountList = fcsv.importFile(new ArrayList<>());
 
         // MENU
         Scanner scMenu = new Scanner(System.in);
@@ -56,15 +55,21 @@ public class Program {
                 System.out.print("Type Account, Current account(c) or Savings account(s): ");
                 String accountType = sc.next();
 
+                System.out.print("Transfer of Limit: ");
+                double limit = sc.nextDouble();
+
                 System.out.print("Name: ");
                 String name = sc.next();
 
                 System.out.print("Initial Amount: ");
                 double amount = sc.nextDouble();
 
-                accountList.add(new Account(accountNumber, agencyNumber, accountType, name, amount));
-                //account = new Account(4488, 22, "s", "Tiago", amount);
-                //account = new Account(4488, 22, "s", "Tiago");
+                accountList.add(new Account(accountNumber, agencyNumber, accountType, limit, name, amount));
+
+                // Teste
+                //account = new Account(4488, 22, "s", 1000, "Tiago", amount);
+                //account = new Account(4488, 22, "s", 1000, "Tiago");
+
                 break;
 
             case 2:
@@ -90,6 +95,7 @@ public class Program {
                         +", Account: "+foundAccount.getAccountNumber()
                         +", Agency: "+foundAccount.getAgencyNumber()
                         +", Type: "+foundAccount.getAccountType()
+                        +", Limit: "+foundAccount.getLimit()
                         +", Amount: "+foundAccount.getAmount()
                     );
                 } else {
@@ -124,6 +130,7 @@ public class Program {
                                     +", Account: "+foundAccount.getAccountNumber()
                                     +", Agency: "+foundAccount.getAgencyNumber()
                                     +", Type: "+foundAccount.getAccountType()
+                                    +", Limit: "+foundAccount.getLimit()
                                     +", Amount: "+foundAccount.getAmount()
                     );
                 } else {
@@ -158,6 +165,41 @@ public class Program {
                                     +", Account: "+foundAccount.getAccountNumber()
                                     +", Agency: "+foundAccount.getAgencyNumber()
                                     +", Type: "+foundAccount.getAccountType()
+                                    +", Limit: "+foundAccount.getLimit()
+                                    +", Amount: "+foundAccount.getAmount()
+                    );
+                } else {
+                    System.out.println("The Account " + targetId + " is not found.");
+                }
+                break;
+            case 5:
+                System.out.println("CHANGE LIMIT");
+
+                // ID Target
+                System.out.print("Enter the Account Number: ");
+                targetId = new Scanner(System.in).next();
+
+                for (Account item: accountList) {
+                    // System.out.println(item.getAccountNumber()+" "+targetId +" "+item.getAccountNumber().getClass().getSimpleName() +" "+targetId.getClass().getSimpleName() +" "+item.getAccountNumber().length() +" "+targetId.length() );
+                    if (item.getAccountNumber().equals(targetId)) {
+                        foundAccount = item;
+                        break;
+                    }
+                    index += 1;
+                }
+
+                if (foundAccount != null) {
+                    System.out.print("What is the new Limit?: ");
+                    amountChange = new Scanner(System.in).nextDouble();
+
+                    foundAccount.changeLimit(amountChange);
+
+                    System.out.println(
+                            "Name: "+foundAccount.getName()
+                                    +", Account: "+foundAccount.getAccountNumber()
+                                    +", Agency: "+foundAccount.getAgencyNumber()
+                                    +", Type: "+foundAccount.getAccountType()
+                                    +", Limit: "+foundAccount.getLimit()
                                     +", Amount: "+foundAccount.getAmount()
                     );
                 } else {
@@ -170,10 +212,11 @@ public class Program {
                 for (Account item: accountList) {
                     System.out.println(
                         "Name: "+item.getName()
-                        +", Account: "+item.getAccountNumber()
-                        +", Agency: "+item.getAgencyNumber()
-                        +", Type: "+item.getAccountType()
-                        +", Amount: "+item.getAmount()
+                                +", Account: "+item.getAccountNumber()
+                                +", Agency: "+item.getAgencyNumber()
+                                +", Type: "+item.getAccountType()
+                                +", Limit: "+item.getLimit()
+                                +", Amount: "+item.getAmount()
                     );
                 }
                 break;

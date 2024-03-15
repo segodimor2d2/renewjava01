@@ -6,24 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileCsv {
-    public List<Account> importFile() {
-        List<Account> accountList = new ArrayList<>();
+    public List<Account> importFile(List<Account> accountList) {
 
-        //List<Account> list = new ArrayList<>();
-
-        //String sourceFileStr = "../mockAccount01.csv";
         String sourceFileStr = "mockAccount01.csv";
-
         File sourceFile = new File(sourceFileStr);
         String sourceFolderStr = sourceFile.getParent();
-
-        //System.out.println(sourceFolderStr);
-
-        //File success = new File(sourceFolderStr + "\\out");
-        //System.out.println(success);
-
-        //String targetFlieStr = sourceFolderStr + "fileout.csv";
-
 
         try (BufferedReader br = new BufferedReader(new FileReader(sourceFileStr))) {
             String itemCsv = br.readLine();
@@ -33,22 +20,23 @@ public class FileCsv {
                 String accountNumber = fields[0];
                 String agencyNumber = fields[1];
                 String accountType = fields[2];
-                String name = fields[3];
-                double amount = Double.parseDouble(fields[4]);
+                double limit = Double.parseDouble(fields[3]);
+                String name = fields[4];
+                double amount = Double.parseDouble(fields[5]);
 
-                accountList.add(new Account(accountNumber, agencyNumber, accountType, name, amount));
+                accountList.add(new Account(accountNumber, agencyNumber, accountType, limit, name, amount));
                 itemCsv = br.readLine();
             }
 
         } catch (IOException e) {
-            System.out.println("error in read: " + e.getMessage());
+            System.out.println("Error in read: " + e.getMessage());
         }
         return accountList;
     }
     public void exportFile(List<Account> accountList){
         String targetFlieStr = "mockAccount02.csv";
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(targetFlieStr))) {
-            bw.write("accountNumber,agencyNumber,accountType,name,amount");
+            bw.write("accountNumber,agencyNumber,accountType,limit,name,amount");
             bw.newLine();
             for (Account item: accountList) {
                 bw.write(item.getAccountNumber()
@@ -56,6 +44,8 @@ public class FileCsv {
                         +item.getAgencyNumber()
                         +","
                         +item.getAccountType()
+                        +","
+                        +item.getLimit()
                         +","
                         +item.getName()
                         +","

@@ -4,6 +4,7 @@ public class Account {
     private String accountNumber;
     private String agencyNumber;
     private String accountType;
+    private double limit;
     private String name;
     private double amount;
     //public double limit;
@@ -12,12 +13,14 @@ public class Account {
         this.accountNumber = accountNumber;
         this.agencyNumber = agencyNumber;
         this.accountType = accountType;
+        this.limit = 1000.0;
         this.name = name;
     }
-    public Account(String accountNumber, String agencyNumber, String accountType, String name, double firstAmount) {
+    public Account(String accountNumber, String agencyNumber, String accountType, double limit, String name, double firstAmount) {
         this.accountNumber = accountNumber;
         this.agencyNumber = agencyNumber;
         this.accountType = accountType;
+        this.limit = 1000.0;
         this.name = name;
         deposit(firstAmount);
     }
@@ -39,25 +42,34 @@ public class Account {
         return name;
     }
 
-    public double getAmount() {
-        return amount;
-    }
+    public double getLimit() { return limit; }
+
+    public double getAmount() { return amount; }
 
     public void deposit(double amount){
         double old = this.amount;
         this.amount += amount;
-        System.out.println("old balance: "
-                +old
-                +" | new balance: "
-                + this.amount);
+        //System.out.println("old balance: " +old +" | new balance: " + this.amount);
     }
-    public void withdraw(double amount){
+    public void withdraw(double amountWithdraw){
         double old = this.amount;
-        this.amount -= amount;
-        System.out.println("old balance: "
-                +old
-                +" | new balance: "
-                + this.amount);
+        if(amountWithdraw <= this.limit){
+            this.amount -= amountWithdraw;
+            //System.out.println("old balance: " +old +" | new balance: " + this.amount);
+        }else{
+            System.out.println("the withdrawal must be less than equal to the limit");
+        }
+
+    }
+    public void changeLimit(double limit){
+        if (limit >= 0) {
+            double oldlimit = this.limit;
+            this.limit = limit;
+            //System.out.println("old limit: " +oldlimit +" | new limit: " + this.limit);
+        }
+        else {
+            System.out.println("the limit cannot be less than 0");
+        }
     }
 
     public void statement() {
@@ -67,6 +79,8 @@ public class Account {
                 + "agencyNumber: " + agencyNumber
                 + " | "
                 + "accountType: " + accountType
+                + " | "
+                + "limit: " + limit
                 + " | "
                 + "client: " + name
                 + " | "
