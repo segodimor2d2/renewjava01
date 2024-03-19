@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileCsv {
-    public List<Account> importFile(List<Account> accountList) {
+    public List<Account> importFile(List<Account> accountList, List<TransactionsHistory> transactionsHistoryList) {
 
         String sourceFileStr = "mockAccount01.csv";
         File sourceFile = new File(sourceFileStr);
@@ -27,6 +27,7 @@ public class FileCsv {
                 double amount = Double.parseDouble(fields[5]);
 
                 accountList.add(new Account(accountNumber, agencyNumber, accountType, limit, name, amount));
+                transactionsHistoryList.add(new TransactionsHistory(accountNumber, agencyNumber, accountType, limit, name, amount, "createAccount"));
                 itemCsv = br.readLine();
             }
 

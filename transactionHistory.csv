@@ -1,1 +1,6 @@
 accountNumber,agencyNumber,accountType,limit,name,amount,transactionTime
+0009,33,s,1000.0,Iacobo,300.0,18:35:53.945909100
+0009,33,s,1000.0,Iacobo,1000.0,18:42:01.358139
+0009,33,s,300.0,Iacobo,1000.0,18:43:41.871665100
+0009,33,s,300.0,Iacobo,1000.0,18:45:22.794874600
+0009,33,s,300.0,Iacobo,800.0,18:46:46.277525400

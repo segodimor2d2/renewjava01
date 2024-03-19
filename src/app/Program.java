@@ -16,8 +16,9 @@ public class Program {
 
         // IMPORT CSV MOCK
         FileCsv fcsv = new FileCsv();
-        List<Account> accountList = fcsv.importFile(new ArrayList<>());
         List<TransactionsHistory> transactionsHistoryList = new ArrayList<>();
+        List<Account> accountList = fcsv.importFile(new ArrayList<>(), transactionsHistoryList);
+        //for(TransactionsHistory itemHistory: transactionsHistoryList){ UI.showHistory(itemHistory); }
 
         // MENU
         Scanner scMenu = new Scanner(System.in);
@@ -78,7 +79,7 @@ public class Program {
 
                 accountData = foundAccount(accountList,accountNumber);
                 UI.showBalance(accountData);
-                setTransactionsHistory(accountData,transactionsHistoryList);
+                setTransactionsHistory(accountData,transactionsHistoryList,"createAccount");
 
 
 
@@ -109,7 +110,7 @@ public class Program {
                     amountChange = new Scanner(System.in).nextDouble();
 
                     accountData.deposit(amountChange);
-                    setTransactionsHistory(accountData,transactionsHistoryList);
+                    setTransactionsHistory(accountData,transactionsHistoryList,"deposit");
                     UI.showBalance(accountData);
                 }
 
@@ -130,7 +131,7 @@ public class Program {
                     amountChange = new Scanner(System.in).nextDouble();
 
                     accountData.withdraw(amountChange);
-                    setTransactionsHistory(accountData,transactionsHistoryList);
+                    setTransactionsHistory(accountData,transactionsHistoryList, "withdraw");
                     UI.showBalance(accountData);
                 }
 
@@ -150,7 +151,7 @@ public class Program {
                     amountChange = new Scanner(System.in).nextDouble();
 
                     accountData.changeLimit(amountChange);
-                    setTransactionsHistory(accountData,transactionsHistoryList);
+                    setTransactionsHistory(accountData,transactionsHistoryList, "changeLimit");
                     UI.showBalance(accountData);
 
                 }
@@ -177,10 +178,10 @@ public class Program {
                             amountChange = new Scanner(System.in).nextDouble();
 
                             accountDataPrayer.withdraw(amountChange);
-                            setTransactionsHistory(accountDataPrayer,transactionsHistoryList);
+                            setTransactionsHistory(accountDataPrayer,transactionsHistoryList, "withdraw");
 
                             accountDataBenefy.deposit(amountChange);
-                            setTransactionsHistory(accountDataBenefy,transactionsHistoryList);
+                            setTransactionsHistory(accountDataBenefy,transactionsHistoryList, "deposit");
 
                             UI.showBalance(accountDataPrayer);
                             //UI.showBalance(accountDataBenefy);
@@ -236,10 +237,11 @@ public class Program {
         for(TransactionsHistory itemHistory: transactionsHistoryList){
             if(itemHistory.getAccountNumber().equals(targetId)){
                 UI.showHistory(itemHistory);
-                if (flagCsv){
-                    filteredList.add(itemHistory);
-                }
+                filteredList.add(itemHistory);
             }
+        }
+
+        if (flagCsv){
             fcsv.exportHistory(filteredList);
         }
     }
@@ -265,7 +267,7 @@ public class Program {
             return foundAccount;
         }
     }
-    public static void setTransactionsHistory(Account accountData, List<TransactionsHistory> transactionsHistoryList) {
+    public static void setTransactionsHistory(Account accountData, List<TransactionsHistory> transactionsHistoryList, String description) {
         transactionsHistoryList.add(new TransactionsHistory(
                 accountData.getAccountNumber(),
                 accountData.getAgencyNumber(),
@@ -273,6 +275,7 @@ public class Program {
                 accountData.getLimit(),
                 accountData.getName(),
                 accountData.getAmount(),
+                description,
                 LocalTime.now()
         ));
     }
