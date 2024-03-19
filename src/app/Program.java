@@ -1,8 +1,10 @@
 package app;
 
 import entities.Account;
+import entities.TransactionsHistory;
 import filesInOut.FileCsv;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -15,6 +17,7 @@ public class Program {
         // IMPORT CSV MOCK
         FileCsv fcsv = new FileCsv();
         List<Account> accountList = fcsv.importFile(new ArrayList<>());
+        List<TransactionsHistory> transactionsHistoryList = new ArrayList<>();
 
         // MENU
         Scanner scMenu = new Scanner(System.in);
@@ -25,14 +28,14 @@ public class Program {
             UI.showMenu();
             int option = scMenu.nextInt();
             System.out.println();
-            menuExecute(option, accountList);
+            menuExecute(option, accountList, transactionsHistoryList);
             //ui.clear();
             if (option == 0){ io = false; };
         }
         scMenu.close();
     }
 
-    private static void menuExecute(int option, List<Account> accountList) {
+    private static void menuExecute(int option, List<Account> accountList, List<TransactionsHistory> transactionsHistoryList) {
         String targetId;
         int index = 0;
         double amountChange;
@@ -74,6 +77,9 @@ public class Program {
 
                 accountData = foundAccount(accountList,accountNumber);
                 UI.showBalance(accountData);
+                setTransactionsHistory(accountData,transactionsHistoryList);
+
+
 
                 break;
 
@@ -102,6 +108,7 @@ public class Program {
                     amountChange = new Scanner(System.in).nextDouble();
 
                     accountData.deposit(amountChange);
+                    setTransactionsHistory(accountData,transactionsHistoryList);
                     UI.showBalance(accountData);
                 }
 
@@ -122,6 +129,7 @@ public class Program {
                     amountChange = new Scanner(System.in).nextDouble();
 
                     accountData.withdraw(amountChange);
+                    setTransactionsHistory(accountData,transactionsHistoryList);
                     UI.showBalance(accountData);
                 }
 
@@ -141,6 +149,7 @@ public class Program {
                     amountChange = new Scanner(System.in).nextDouble();
 
                     accountData.changeLimit(amountChange);
+                    setTransactionsHistory(accountData,transactionsHistoryList);
                     UI.showBalance(accountData);
 
                 }
@@ -174,6 +183,14 @@ public class Program {
                 }
 
                 break;
+            case 7:
+                System.out.println("TRANSACTION HISTORY");
+
+                for(TransactionsHistory itemHistory: transactionsHistoryList){
+                    UI.showHistory(itemHistory);
+                }
+
+                break;
             case 8:
                 System.out.println("SHOW ALL ACCOUNTS");
                 for (Account item: accountList) {
@@ -196,6 +213,8 @@ public class Program {
         }
     }
 
+    //private static void menuExecute(int option, List<Account> accountList, List<TransactionsHistory> transactionsHistory) {
+
     private static Account foundAccount(List<Account> accountList, String targetId){
         Account foundAccount = null;
         int index = 0;
@@ -216,6 +235,17 @@ public class Program {
             System.out.println("Error - The Account " + targetId + " is not found.");
             return foundAccount;
         }
+    }
+    public static void setTransactionsHistory(Account accountData, List<TransactionsHistory> transactionsHistoryList) {
+        transactionsHistoryList.add(new TransactionsHistory(
+                accountData.getAccountNumber(),
+                accountData.getAgencyNumber(),
+                accountData.getAccountType(),
+                accountData.getLimit(),
+                accountData.getName(),
+                accountData.getAmount(),
+                LocalTime.now()
+        ));
     }
 }
 

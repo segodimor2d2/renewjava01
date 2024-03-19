@@ -65,8 +65,8 @@ public class Account {
 
         double limitRestriction = this.limit;
 
-        //LocalTime currentTime = LocalTime.now();
-        LocalTime currentTime  = LocalTime.of(23, 0); //test
+        LocalTime currentTime = LocalTime.now();
+        //LocalTime currentTime  = LocalTime.of(23, 0); //test
         LocalTime deadlineTimeEarly= LocalTime.of(6, 0);
         LocalTime deadlineTimeNight = LocalTime.of(22, 0);
 
