@@ -12,7 +12,19 @@ public class UI {
         //System.out.println("3 Deposit");
         //System.out.println("0 Exit Menu");
 
-        System.out.println("MENU: 1-Create Account, 2-Balance, 3-Deposit, 4-Withdraw, 5-Change Limit, 6-Transfer, 7-Transaction History, 8-Save Transactions, 9-Show All Accounts, 10-Save All Accounts to CSV,  0-Exit Menu");
+        System.out.println("MENU: "
+                +"1-Create Account, "
+                +"2-Balance, "
+                +"3-Deposit, "
+                +"4-Withdraw, "
+                +"5-Change Limit, "
+                +"6-Transfer, "
+                +"7-Transactions History, "
+                +"8-Save Transactions to CSV, "
+                +"9-Show All Accounts, "
+                +"10-Save All Accounts to CSV, "
+                +"0-Exit Menu");
+
         System.out.println("============================================================================================================================================================================================");
         System.out.print("Option: ");
     }

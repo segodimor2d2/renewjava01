@@ -1,6 +1,8 @@
 package filesInOut;
 
 import entities.Account;
+import entities.TransactionsHistory;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +34,34 @@ public class FileCsv {
             System.out.println("Error in read: " + e.getMessage());
         }
         return accountList;
+    }
+    public void exportHistory(List<TransactionsHistory> transactionsHistoryList){
+        String targetFlieStr = "transactionHistory.csv";
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(targetFlieStr))) {
+            bw.write("accountNumber,agencyNumber,accountType,limit,name,amount,transactionTime");
+            bw.newLine();
+            for (TransactionsHistory item: transactionsHistoryList) {
+                bw.write(item.getAccountNumber()
+                        +","
+                        +item.getAgencyNumber()
+                        +","
+                        +item.getAccountType()
+                        +","
+                        +item.getLimit()
+                        +","
+                        +item.getName()
+                        +","
+                        +item.getAmount()
+                        +","
+                        +item.getTransactionTime() );
+                bw.newLine();
+            }
+
+            System.out.println(targetFlieStr + " created");
+
+        } catch (IOException e){
+            System.out.println("error in write: "+ e.getMessage());
+        }
     }
     public void exportFile(List<Account> accountList){
         String targetFlieStr = "mockAccount02.csv";

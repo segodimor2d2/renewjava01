@@ -42,6 +42,7 @@ public class Program {
         Account accountData = null;
         Account accountDataPrayer = null;
         Account accountDataBenefy = null;
+        FileCsv fcsv = new FileCsv();
         switch (option) {
 
             case 1:
@@ -176,7 +177,11 @@ public class Program {
                             amountChange = new Scanner(System.in).nextDouble();
 
                             accountDataPrayer.withdraw(amountChange);
+                            setTransactionsHistory(accountDataPrayer,transactionsHistoryList);
+
                             accountDataBenefy.deposit(amountChange);
+                            setTransactionsHistory(accountDataBenefy,transactionsHistoryList);
+
                             UI.showBalance(accountDataPrayer);
                             //UI.showBalance(accountDataBenefy);
                         }
@@ -186,34 +191,58 @@ public class Program {
             case 7:
                 System.out.println("TRANSACTION HISTORY");
 
-                for(TransactionsHistory itemHistory: transactionsHistoryList){
-                    UI.showHistory(itemHistory);
-                }
+                // ID Target
+                System.out.print("Enter the Account Number: ");
+                targetId = new Scanner(System.in).next();
+                foundHistory(transactionsHistoryList,targetId,false);
 
                 break;
             case 8:
+                fcsv = new FileCsv();
+                System.out.println("SAVE TRANSACTION HISTORY TO CSV");
+
+                // ID Target
+                System.out.print("Enter the Account Number: ");
+                targetId = new Scanner(System.in).next();
+                foundHistory(transactionsHistoryList,targetId,true);
+
+                break;
+            case 9:
                 System.out.println("SHOW ALL ACCOUNTS");
                 for (Account item: accountList) {
                     UI.showBalance(item);
                 }
-                break;
 
-            case 9:
+                break;
+            case 10:
                 System.out.println("SAVE ALL ACCOUNTS TO CSV");
-                FileCsv fcsv = new FileCsv();
                 fcsv.exportFile(accountList);
-                break;
 
+                break;
             case 0:
                 System.out.println("Exit, Goodbye!");
-                break;
 
+                break;
             default:
                 System.out.println("Opção inválida. Tente novamente.");
         }
     }
 
     //private static void menuExecute(int option, List<Account> accountList, List<TransactionsHistory> transactionsHistory) {
+
+    private static void foundHistory(List<TransactionsHistory> transactionsHistoryList, String targetId, boolean flagCsv){
+        FileCsv fcsv = new FileCsv();
+        List<TransactionsHistory> filteredList = new ArrayList<>();
+        for(TransactionsHistory itemHistory: transactionsHistoryList){
+            if(itemHistory.getAccountNumber().equals(targetId)){
+                UI.showHistory(itemHistory);
+                if (flagCsv){
+                    filteredList.add(itemHistory);
+                }
+            }
+            fcsv.exportHistory(filteredList);
+        }
+    }
 
     private static Account foundAccount(List<Account> accountList, String targetId){
         Account foundAccount = null;
