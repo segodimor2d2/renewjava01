@@ -36,7 +36,9 @@ public class Program {
         String targetId;
         int index = 0;
         double amountChange;
-        Account foundAccount = null;
+        Account accountData = null;
+        Account accountDataPrayer = null;
+        Account accountDataBenefy = null;
         switch (option) {
 
             case 1:
@@ -55,8 +57,8 @@ public class Program {
                 System.out.print("Type Account, Current account(c) or Savings account(s): ");
                 String accountType = sc.next();
 
-                System.out.print("Transfer of Limit: ");
-                double limit = sc.nextDouble();
+                // System.out.print("Transfer of Limit: ");
+                // double limit = sc.nextDouble();
 
                 System.out.print("Name: ");
                 String name = sc.next();
@@ -64,11 +66,14 @@ public class Program {
                 System.out.print("Initial Amount: ");
                 double amount = sc.nextDouble();
 
-                accountList.add(new Account(accountNumber, agencyNumber, accountType, limit, name, amount));
+                accountList.add(new Account(accountNumber, agencyNumber, accountType, name, amount));
 
                 // Teste
                 //account = new Account(4488, 22, "s", 1000, "Tiago", amount);
                 //account = new Account(4488, 22, "s", 1000, "Tiago");
+
+                accountData = foundAccount(accountList,accountNumber);
+                UI.showBalance(accountData);
 
                 break;
 
@@ -78,29 +83,8 @@ public class Program {
                 // ID Target
                 System.out.print("Enter the Account Number: ");
                 targetId = new Scanner(System.in).next();
-
-                for (Account item: accountList) {
-                    // System.out.println(item.getAccountNumber()+" "+targetId +" "+item.getAccountNumber().getClass().getSimpleName() +" "+targetId.getClass().getSimpleName() +" "+item.getAccountNumber().length() +" "+targetId.length() );
-                    if (item.getAccountNumber().equals(targetId)) {
-                        foundAccount = item;
-                        break;
-                    }
-                    index += 1;
-                }
-
-                if (foundAccount != null) {
-                    //System.out.println("Conta encontrada: " + foundAccount);
-                    System.out.println(
-                        "Name: "+foundAccount.getName()
-                        +", Account: "+foundAccount.getAccountNumber()
-                        +", Agency: "+foundAccount.getAgencyNumber()
-                        +", Type: "+foundAccount.getAccountType()
-                        +", Limit: "+foundAccount.getLimit()
-                        +", Amount: "+foundAccount.getAmount()
-                    );
-                } else {
-                    System.out.println("The Account " + targetId + " is not found.");
-                }
+                accountData = foundAccount(accountList,targetId);
+                UI.showBalance(accountData);
                 break;
 
             case 3:
@@ -110,32 +94,17 @@ public class Program {
                 System.out.print("Enter the Account Number: ");
                 targetId = new Scanner(System.in).next();
 
-                for (Account item: accountList) {
-                    // System.out.println(item.getAccountNumber()+" "+targetId +" "+item.getAccountNumber().getClass().getSimpleName() +" "+targetId.getClass().getSimpleName() +" "+item.getAccountNumber().length() +" "+targetId.length() );
-                    if (item.getAccountNumber().equals(targetId)) {
-                        foundAccount = item;
-                        break;
-                    }
-                    index += 1;
-                }
+                accountData = foundAccount(accountList,targetId);
+                if (accountData != null) {
+                    UI.showBalance(accountData);
 
-                if (foundAccount != null) {
                     System.out.print("What is the deposit amount?: ");
                     amountChange = new Scanner(System.in).nextDouble();
 
-                    foundAccount.deposit(amountChange);
-
-                    System.out.println(
-                            "Name: "+foundAccount.getName()
-                                    +", Account: "+foundAccount.getAccountNumber()
-                                    +", Agency: "+foundAccount.getAgencyNumber()
-                                    +", Type: "+foundAccount.getAccountType()
-                                    +", Limit: "+foundAccount.getLimit()
-                                    +", Amount: "+foundAccount.getAmount()
-                    );
-                } else {
-                    System.out.println("The Account " + targetId + " is not found.");
+                    accountData.deposit(amountChange);
+                    UI.showBalance(accountData);
                 }
+
                 break;
 
             case 4:
@@ -145,32 +114,17 @@ public class Program {
                 System.out.print("Enter the Account Number: ");
                 targetId = new Scanner(System.in).next();
 
-                for (Account item: accountList) {
-                    // System.out.println(item.getAccountNumber()+" "+targetId +" "+item.getAccountNumber().getClass().getSimpleName() +" "+targetId.getClass().getSimpleName() +" "+item.getAccountNumber().length() +" "+targetId.length() );
-                    if (item.getAccountNumber().equals(targetId)) {
-                        foundAccount = item;
-                        break;
-                    }
-                    index += 1;
-                }
+                accountData = foundAccount(accountList,targetId);
+                if (accountData != null) {
+                    UI.showBalance(accountData);
 
-                if (foundAccount != null) {
                     System.out.print("What is the withdraw amount?: ");
                     amountChange = new Scanner(System.in).nextDouble();
 
-                    foundAccount.withdraw(amountChange);
-
-                    System.out.println(
-                            "Name: "+foundAccount.getName()
-                                    +", Account: "+foundAccount.getAccountNumber()
-                                    +", Agency: "+foundAccount.getAgencyNumber()
-                                    +", Type: "+foundAccount.getAccountType()
-                                    +", Limit: "+foundAccount.getLimit()
-                                    +", Amount: "+foundAccount.getAmount()
-                    );
-                } else {
-                    System.out.println("The Account " + targetId + " is not found.");
+                    accountData.withdraw(amountChange);
+                    UI.showBalance(accountData);
                 }
+
                 break;
             case 5:
                 System.out.println("CHANGE LIMIT");
@@ -179,45 +133,51 @@ public class Program {
                 System.out.print("Enter the Account Number: ");
                 targetId = new Scanner(System.in).next();
 
-                for (Account item: accountList) {
-                    // System.out.println(item.getAccountNumber()+" "+targetId +" "+item.getAccountNumber().getClass().getSimpleName() +" "+targetId.getClass().getSimpleName() +" "+item.getAccountNumber().length() +" "+targetId.length() );
-                    if (item.getAccountNumber().equals(targetId)) {
-                        foundAccount = item;
-                        break;
-                    }
-                    index += 1;
-                }
+                accountData = foundAccount(accountList,targetId);
+                if (accountData != null) {
+                    UI.showBalance(accountData);
 
-                if (foundAccount != null) {
                     System.out.print("What is the new Limit?: ");
                     amountChange = new Scanner(System.in).nextDouble();
 
-                    foundAccount.changeLimit(amountChange);
+                    accountData.changeLimit(amountChange);
+                    UI.showBalance(accountData);
 
-                    System.out.println(
-                            "Name: "+foundAccount.getName()
-                                    +", Account: "+foundAccount.getAccountNumber()
-                                    +", Agency: "+foundAccount.getAgencyNumber()
-                                    +", Type: "+foundAccount.getAccountType()
-                                    +", Limit: "+foundAccount.getLimit()
-                                    +", Amount: "+foundAccount.getAmount()
-                    );
-                } else {
-                    System.out.println("The Account " + targetId + " is not found.");
                 }
-                break;
 
+                break;
+            case 6:
+                System.out.println("TRANSFER");
+
+                // ID Target
+                System.out.print("Enter the 'Payer' Account Number: ");
+                String payerId = new Scanner(System.in).next();
+                accountDataPrayer = foundAccount(accountList,payerId);
+
+                if (accountDataPrayer != null) {
+                    System.out.print("Enter the 'Beneficiary' Account Number: ");
+                    String beneficaryId = new Scanner(System.in).next();
+                    accountDataBenefy = foundAccount(accountList,beneficaryId);
+
+                        if (accountDataBenefy != null) {
+
+                            UI.showBalance(accountDataPrayer);
+                            //UI.showBalance(accountDataBenefy);
+                            System.out.print("What is the amount to transfer?: ");
+                            amountChange = new Scanner(System.in).nextDouble();
+
+                            accountDataPrayer.withdraw(amountChange);
+                            accountDataBenefy.deposit(amountChange);
+                            UI.showBalance(accountDataPrayer);
+                            //UI.showBalance(accountDataBenefy);
+                        }
+                }
+
+                break;
             case 8:
                 System.out.println("SHOW ALL ACCOUNTS");
                 for (Account item: accountList) {
-                    System.out.println(
-                        "Name: "+item.getName()
-                                +", Account: "+item.getAccountNumber()
-                                +", Agency: "+item.getAgencyNumber()
-                                +", Type: "+item.getAccountType()
-                                +", Limit: "+item.getLimit()
-                                +", Amount: "+item.getAmount()
-                    );
+                    UI.showBalance(item);
                 }
                 break;
 
@@ -235,4 +195,28 @@ public class Program {
                 System.out.println("Opção inválida. Tente novamente.");
         }
     }
+
+    private static Account foundAccount(List<Account> accountList, String targetId){
+        Account foundAccount = null;
+        int index = 0;
+        for (Account item: accountList) {
+            // System.out.println(item.getAccountNumber()+" "+targetId +" "+item.getAccountNumber().getClass().getSimpleName() +" "+targetId.getClass().getSimpleName() +" "+item.getAccountNumber().length() +" "+targetId.length() );
+            if (item.getAccountNumber().equals(targetId)) {
+                foundAccount = item;
+                break;
+            }
+            index += 1;
+        }
+
+        if (foundAccount != null) {
+            //System.out.println("Conta encontrada: " + foundAccount);
+            //UI.showBalance(foundAccount);
+            return foundAccount;
+        } else {
+            System.out.println("Error - The Account " + targetId + " is not found.");
+            return foundAccount;
+        }
+    }
 }
+
+

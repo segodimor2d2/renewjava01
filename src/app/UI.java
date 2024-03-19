@@ -1,5 +1,7 @@
 package app;
 
+import entities.Account;
+
 public class UI {
     public static void showMenu() {
         System.out.println("============================================================================================================================================================================================");
@@ -13,6 +15,21 @@ public class UI {
         System.out.println("============================================================================================================================================================================================");
         System.out.print("Option: ");
     }
+
+    public static void showBalance(Account foundAccount) {
+        if (foundAccount != null) {
+            System.out.println(
+                    "Status Balance => "
+                    + "Name: " + foundAccount.getName()
+                            + ", Account: " + foundAccount.getAccountNumber()
+                            + ", Agency: " + foundAccount.getAgencyNumber()
+                            + ", Type: " + foundAccount.getAccountType()
+                            + ", Limit: " + foundAccount.getLimit()
+                            + ", Amount: " + foundAccount.getAmount()
+            );
+        }
+    }
+
     public static void clear() {
         // Imprime 50 novas linhas
         //for (int i = 0; i < 50; ++i) System.out.println();
