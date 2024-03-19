@@ -229,8 +229,6 @@ public class Program {
         }
     }
 
-    //private static void menuExecute(int option, List<Account> accountList, List<TransactionsHistory> transactionsHistory) {
-
     private static void foundHistory(List<TransactionsHistory> transactionsHistoryList, String targetId, boolean flagCsv){
         FileCsv fcsv = new FileCsv();
         List<TransactionsHistory> filteredList = new ArrayList<>();

@@ -5,14 +5,9 @@ import entities.TransactionsHistory;
 
 public class UI {
     public static void showMenu() {
-        System.out.println("============================================================================================================================================================================================");
-        //System.out.println("MENU:");
-        //System.out.println("1 Create Account");
-        //System.out.println("2 Show Balance");
-        //System.out.println("3 Deposit");
-        //System.out.println("0 Exit Menu");
+        System.out.println("==================================================================================================================================================================================================================");
 
-        System.out.println("MENU: "
+        System.out.println("MENU: \n"
                 +"1-Create Account, "
                 +"2-Balance, "
                 +"3-Deposit, "
@@ -21,11 +16,11 @@ public class UI {
                 +"6-Transfer, "
                 +"7-Transactions History, "
                 +"8-Save Transactions to CSV, "
-                +"9-Show All Accounts, "
+                +"\n9-Show All Accounts, "
                 +"10-Save All Accounts to CSV, "
                 +"0-Exit Menu");
 
-        System.out.println("============================================================================================================================================================================================");
+        System.out.println("==================================================================================================================================================================================================================");
         System.out.print("Option: ");
     }
 
@@ -52,13 +47,12 @@ public class UI {
                             + ", Limit: " + item.getLimit()
                             + ", Name: " + item.getName()
                             + ", Amount: " + item.getAmount()
+                            + ", Description: " + item.getDescription()
                             + ", DataTime: " + item.getTransactionTime()
             );
         }
     }
     public static void clear() {
-        // Imprime 50 novas linhas
-        //for (int i = 0; i < 50; ++i) System.out.println();
         for (int i = 0; i < 20; ++i) System.out.println();
     }
 }

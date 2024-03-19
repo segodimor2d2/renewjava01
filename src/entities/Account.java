@@ -95,20 +95,4 @@ public class Account {
             System.out.println("Error - the limit cannot be less than 0");
         }
     }
-
-    public void statement() {
-        System.out.println( "Statment Account\n"+
-                "accountNumber: " + accountNumber
-                + " | "
-                + "agencyNumber: " + agencyNumber
-                + " | "
-                + "accountType: " + accountType
-                + " | "
-                + "limit: " + limit
-                + " | "
-                + "client: " + name
-                + " | "
-                + "balance: " + amount
-        );
-    }
 }

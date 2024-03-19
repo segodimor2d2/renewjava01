@@ -54,6 +54,8 @@ public class FileCsv {
                         +","
                         +item.getAmount()
                         +","
+                        +item.getDescription()
+                        +","
                         +item.getTransactionTime() );
                 bw.newLine();
             }
