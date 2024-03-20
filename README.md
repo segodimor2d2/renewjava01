@@ -112,7 +112,7 @@ participant FileCsv
 loop MENU IN LOOP
 UI-->>Client: Show Options!
 
-Client->>UI: "CHANGE LIMIT
+Client->>UI: CHANGE LIMIT
 UI->>Program: 
 Program-->>Client: Enter the Account Number:
 Client->>Program: accountNumber
