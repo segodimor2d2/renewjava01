@@ -173,7 +173,34 @@ UI-->>Client: Show Options
 end
 
 ```
+```mermaid
+sequenceDiagram
+participant Client
+participant UI
+participant Program
 
+participant Account
+participant TransactionsHistory
+participant FileCsv
+    
+loop MENU IN LOOP
+UI-->>Client: Show Options!
+
+Client->>UI: TRANSACTION HISTORY
+UI->>Program: 
+Program-->>Client: Enter the Account Number:
+Client->>Program: accountNumber
+Program->>Account: transactionsHistoryList
+Account->>TransactionsHistory: foundHistory<br>by accountNumber
+TransactionsHistory-->>Program: foundHistory
+Program-->>UI: foundHistory
+UI-->>Client: Show History
+UI-->>Client: Show Options
+
+
+end
+
+```
 
 
 ## Class Diagram 
