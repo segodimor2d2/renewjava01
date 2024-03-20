@@ -99,6 +99,39 @@ UI-->>Client: Show Options
 
 end
 ```
+```mermaid
+sequenceDiagram
+participant Client
+participant UI
+participant Program
+
+participant Account
+participant TransactionsHistory
+participant FileCsv
+    
+loop MENU IN LOOP
+UI-->>Client: Show Options!
+
+Client->>UI: "CHANGE LIMIT
+UI->>Program: 
+Program-->>Client: Enter the Account Number:
+Client->>Program: accountNumber
+Program->>Account: accountsList
+Account-->>Program: accountData
+Program-->>Client: What is the new Limit?
+Client->>Program: amountChange
+Program->>Account: accountData.changeLimit(amountChange)
+Account->>TransactionsHistory: setTransactionsHistory<br>description: changeLimit<br>dateTime
+Account-->>Program: Account Limit
+Program-->>UI: New Balance
+UI-->>Client: Show Balance
+UI-->>Client: Show Options
+
+
+end
+
+```
+
 
 
 ## Class Diagram 
