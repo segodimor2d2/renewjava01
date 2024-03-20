@@ -35,6 +35,21 @@ Program-->>UI: Balance
 UI-->>Client: Show Balance
 UI-->>Client: Show Options!
 
+end     
+```
+
+```mermaid
+sequenceDiagram
+participant Client
+participant UI
+participant Program
+
+participant Account
+participant TransactionsHistory
+participant FileCsv
+    
+loop MENU IN LOOP
+UI-->>Client: Show Options!
 
 Client->>UI: DEPOSIT
 UI->>Program: 
@@ -51,16 +66,39 @@ Program-->>UI: New Balance
 UI-->>Client: Show Balance
 UI-->>Client: Show Options
 
-
 end
-    
-
-
 ```
 
+```mermaid
+sequenceDiagram
+participant Client
+participant UI
+participant Program
 
+participant Account
+participant TransactionsHistory
+participant FileCsv
+    
+loop MENU IN LOOP
+UI-->>Client: Show Options!
 
+Client->>UI: WITHDRAW
+UI->>Program: 
+Program-->>Client: Enter the Account Number:
+Client->>Program: accountNumber
+Program->>Account: accountsList
+Account-->>Program: accountData
+Program-->>Client: What is the withdraw amount?
+Client->>Program: amount
+Program->>Account: accountData.withdraw(amountChange)
+Account->>TransactionsHistory: setTransactionsHistory<br>description: withdraw<br>dateTime
+Account-->>Program: Account withdraw
+Program-->>UI: New Balance
+UI-->>Client: Show Balance
+UI-->>Client: Show Options
 
+end
+```
 
 
 ## Class Diagram 
