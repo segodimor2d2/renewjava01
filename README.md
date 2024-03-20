@@ -16,19 +16,49 @@ FileCsv-->>Account: create accounts list
 Account->>TransactionsHistory: create accounts list create events
 
 loop MENU IN LOOP
-Program-->>UI: Show Options!
+UI-->>Client: Show Options!
+
 Client->>UI: CREATE ACCOUNT<br><br>inputData:<br>accountNumber<br>agencyNumber<br>accountType<br>limit<br>name<br>amount
 UI->>Program: inputData
 Program->>Account: inputData
 Account->>TransactionsHistory: copy inputData<br>addDataTime<br>addDescription
-Account-->>UI: Account Created
-UI-->>Client: Account Created
-Program-->>UI: Show Options!
+Account-->>Program: Account Created
+Program-->>UI: Account Created
+UI-->>Client: Show New Account Balance
+UI-->>Client: Show Options
+
+Client->>UI: BALANCE
+UI->>Program: 
+Program->>Account: accountsList
+Account-->>Program: filterByAccountNumber
+Program-->>UI: Balance
+UI-->>Client: Show Balance
+UI-->>Client: Show Options!
+
+
+Client->>UI: DEPOSIT
+UI->>Program: 
+Program-->>Client: Enter the Account Number:
+Client->>Program: accountNumber
+Program->>Account: accountsList
+Account-->>Program: accountData
+Program-->>Client: What is the deposit amount?
+Client->>Program: amount
+Program->>Account: accountData.deposit(amountChange)
+Account->>TransactionsHistory: setTransactionsHistory<br>description: deposit<br>dateTime
+Account-->>Program: Account Deposit
+Program-->>UI: New Balance
+UI-->>Client: Show Balance
+UI-->>Client: Show Options
+
+
 end
     
 
 
 ```
+
+
 
 
 
