@@ -132,6 +132,48 @@ end
 
 ```
 
+```mermaid
+sequenceDiagram
+participant Client
+participant UI
+participant Program
+
+participant Account
+participant TransactionsHistory
+participant FileCsv
+    
+loop MENU IN LOOP
+UI-->>Client: Show Options!
+
+Client->>UI: TRANSFER
+UI->>Program: 
+Program-->>Client: Enter the 'Payer' Account Number:
+Client->>Program: payerNumber
+Program->>Account: accountsList
+Account-->>Program: payerAccountData
+
+Program-->>Client: Enter the 'Beneficiary' Account Number:
+Client->>Program: beneficiaryNumber
+Program->>Account: accountsList
+Account-->>Program: beneficiaryAccountData
+
+Program-->>Client: What is the amount to transfer?
+Client->>Program: amountChange
+Program->>Account: accountDataPrayer.withdraw(amountChange)
+Account->>TransactionsHistory: setTransactionsHistory<br>description: withdraw<br>dateTime
+Program->>Account: accountDataBenefy.deposit(amountChange)
+Account->>TransactionsHistory: setTransactionsHistory<br>description: deposit<br>dateTime
+
+Account-->>Program: Account Transfer Payer
+Program-->>UI: New Balance
+UI-->>Client: Show Balance
+UI-->>Client: Show Options
+
+
+end
+
+```
+
 
 
 ## Class Diagram 
