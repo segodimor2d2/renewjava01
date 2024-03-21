@@ -1,7 +1,3 @@
 accountNumber,agencyNumber,accountType,limit,name,amount,transactionTime
-0033,55,s,1000.0,Santiago,4000.0,createAccount,20:09:19.646454100
-0033,55,s,1000.0,Santiago,4320.0,deposit,20:10:47.477601500
-0033,55,s,1000.0,Santiago,3820.0,withdraw,20:11:02.898108100
-0033,55,s,400.0,Santiago,3820.0,changeLimit,20:11:38.358235300
-0033,55,s,400.0,Santiago,3820.0,withdraw,20:12:02.511900400
-0033,55,s,400.0,Santiago,3520.0,withdraw,20:12:27.462517500
+0009,33,s,1000.0,Iacobo,300.0,createAccount,17:16:34.434034900
+0009,33,s,1000.0,Iacobo,700.0,deposit,17:16:52.869246300

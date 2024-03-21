@@ -27,7 +27,8 @@ public class FileCsv {
                 double amount = Double.parseDouble(fields[5]);
 
                 accountList.add(new Account(accountNumber, agencyNumber, accountType, limit, name, amount));
-                transactionsHistoryList.add(new TransactionsHistory(accountNumber, agencyNumber, accountType, limit, name, amount, "createAccount"));
+                //transactionsHistoryList.add(new TransactionsHistory(accountNumber, agencyNumber, accountType, limit, amount, I"createAccount"));
+                transactionsHistoryList.add(new TransactionsHistory(accountNumber, agencyNumber, accountType, name, limit, amount, "createAccount"));
                 itemCsv = br.readLine();
             }
 

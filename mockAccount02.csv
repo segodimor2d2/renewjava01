@@ -7,7 +7,7 @@ accountNumber,agencyNumber,accountType,limit,name,amount
 0006,22,c,1000.0,Jacó,50.0
 0007,33,s,1000.0,Yaakob,70.0
 0008,33,c,1000.0,Jaume,200.0
-0009,33,s,1000.0,Iacobo,1100.0
+0009,33,s,1000.0,Iacobo,750.0
 0010,44,c,1000.0,Jacopo,30.0
 0011,44,s,1000.0,Iago,500.0
-0033,55,s,400.0,Santiago,3520.0
+0033,44,s,200.0,Santiago,420.0
