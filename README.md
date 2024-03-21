@@ -1,6 +1,6 @@
 # renewjava01
 
-## Instruções de Execução e operação da plicação
+## Instruções de execução e operação da aplicação
 
 [![Alt Text](http://img.youtube.com/vi/nA0c8N9awoI/0.jpg)](http://www.youtube.com/watch?v=nA0c8N9awoI)
 
