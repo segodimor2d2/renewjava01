@@ -298,12 +298,7 @@ Account : deposit()
 Account : withdraw()
 Account : changeLimit()
 
-TransactionsHistory : String accountNumber
-TransactionsHistory : String agencyNumber
-TransactionsHistory : String accountType
 TransactionsHistory : double limit
-TransactionsHistory : String name
-TransactionsHistory : double amount
 TransactionsHistory : String description
 TransactionsHistory : LocalTime transactionTime
 
